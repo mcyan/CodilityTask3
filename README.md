@@ -5,10 +5,12 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 - Python 3.6
 - Selenium
 
-## Limits
-- Web portal test - portal installed/started on local environment, but H_KEY is not supplied. The key is named as "x-hasura-admin-secret" in "gqlQuestionApi.js", and is needed to connect to production API's (databases)
-- API tests - no known expired token yet. To cover this, added test case "test_verify_token_static" will test a hardcoded token, and expectation changes automatically according to token expiry date. After 15th Dec 2021, this test case will verify expired token. (Valid token is verified in "test_verify_token_dynamic")
+## Limits & Risks
+- Web portal test - portal installed/started on local environment, but H_KEY is not supplied. The key is named as "x-hasura-admin-secret" in "gqlQuestionApi.js", and is needed to connect to production API's (databases). Therefore, can only execute tests on login screen, and some of the tests are impossible to verify the outcome at this stage.
+- API tests - the server might crash after negative test, and the failure is very random. When the issue occurs, all subsequent tests will get 503 from API call, and tests fail. Might need to run tests separately, and each time run a small sub-set of tests, to bypass the system error.
 - API tests - cannot test Delete user as it is protected by "delete-key", which is not provided
+- API tests - no known expired token yet. To cover this, added test case "test_verify_token_static" will test a hardcoded token, and expectation changes automatically according to token expiry date. After 15th Dec 2021, this test case will verify expired token. (Valid token is verified in "test_verify_token_dynamic")
+
 
 ## API Tests
 Currently it uses a fixed authentication token which expires on 15th Dec 2021, the tests could be switched later to automatically generate and use new token for running testing script. Feature to read/return new token from gmail is already available in "reademail.py", and is used in some test cases. 
