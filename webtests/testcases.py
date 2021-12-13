@@ -15,8 +15,14 @@ class LoginPageTests(unittest.TestCase):
     '''
 
     def setUp(self):
+        
+        # TO-DO: can switch driver to test in different browser
         self.browserdriver = webdriver.Chrome()
-        print('open page in http://127.0.0.1:8080/')
+        #self.browserdriver = webdriver.Ie()
+        #self.browserdriver = webdriver.Firefox()
+        
+        
+        #print('open page in http://127.0.0.1:8080/')
         self.browserdriver.get("http://127.0.0.1:8080/")
 
     def test_static_elements(self):
