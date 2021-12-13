@@ -29,7 +29,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Verify static elements on login screen
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_static_elements')
         
         login_page = pageobjects.LoginPage(self.browserdriver)
@@ -54,7 +54,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Test with valid user, user should be able to login successfully
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_create_success')                
         login_page = pageobjects.LoginPage(self.browserdriver)
         
@@ -70,7 +70,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Expected to successfully create warrior with long name        
         '''   
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_register_success_long_name_50')           
         login_page = pageobjects.LoginPage(self.browserdriver)
         
@@ -84,7 +84,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Test with valid user, user should be able to login successfully
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_create_fail_duplicate_name')   
                 
         login_page = pageobjects.LoginPage(self.browserdriver)
@@ -99,7 +99,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Expected not to allow create warrior with name longer than field defined        
         '''   
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_create_fail_xtralong_name_51')           
         login_page = pageobjects.LoginPage(self.browserdriver)
         
@@ -113,7 +113,7 @@ class LoginPageTests(unittest.TestCase):
         '''
         Expected not to allow create warrior with empty name        
         '''   
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Login Page - test_create_fail_empty_name')           
         login_page = pageobjects.LoginPage(self.browserdriver)
         
