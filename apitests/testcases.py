@@ -18,6 +18,8 @@ AUTH = r'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJseTIwMjExMjEyIiwiZW1haW
 BASEURL = r'https://supervillain.herokuapp.com'
 GENTOKEN_URL = r'https://supervillain.herokuapp.com/auth/gentoken'
 VRYTOKEN_URL = r'https://supervillain.herokuapp.com/auth/verifytoken'
+LOGIN_URL = r'https://supervillain.herokuapp.com/auth/user/login'
+REGISTER_URL = r'https://supervillain.herokuapp.com/auth/user/register'
 
 #TO-DO: change to inherit from "unittest.TestCase" to enable testing
 class AppAuthGenerate(unittest.TestCase):    
@@ -117,6 +119,29 @@ class AppAuthGenerate(unittest.TestCase):
         __email = r'crazyFrog@yopmail.com'
                             
         self.body['key'] = r'crazyFrog'        
+        self.body['email'] = __email                
+        
+        expected_code = r'400'
+        expected_res = r'error: duplicate key value'
+                
+        r = requests.post(GENTOKEN_URL, data=json.dumps(self.body), headers=self.HEADERS)
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to validate duplicate key values! Response=" + str(r)
+        assert str(r.content).lower().find(expected_res)>=0, "Error - request body is not expected! Response=" + str(r.content)
+
+    def test_gen_token_fail_duplicate_key_uppercase(self):
+        '''
+        Test Application Authentication API - Generate Token
+        Expected not to generate a new token due to duplicate key "crazyFrog"        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: Application Authentication - test_gen_token_fail_duplicate_key_uppercase')
+        print ('Expected to fail to generate a new token due to duplicate key "crazyFrog"')
+        
+        # generate random key
+        __email = r'crazyFrog@yopmail.com'
+                            
+        self.body['key'] = r'CRAZYFROG'        
         self.body['email'] = __email                
         
         expected_code = r'400'
@@ -315,29 +340,292 @@ class AppAuthVerify(unittest.TestCase):
 
 
 #TO-DO: change to inherit from "unittest.TestCase" to enable testing
-#class UserAuth(unittest.TestCase):
-class UserAuth():    
+class UserAuth(unittest.TestCase):
+#class UserAuth():    
     '''
     Test User Authentication API
     '''        
     def setUp(self):
-        #TO-DO: if time allowed, should change to get new token via email (function is already available)
-        self.URL = BASEURL+r'/v1/user'
+        #TO-DO: if time allowed, should change to get new token via email (function is already available)        
         self.body = {}
-        self.HEADERS = {
+        self.reg_headers = {
             r'accept': r'*/*',
             r'Authorization':AUTH,
             r'Content-Type': r'application/json'
+                        }
+        self.login_headers = {
+            r'accept': r'application/json',
+            r'Authorization':AUTH,            
+            r'Content-Type': r'application/json'
                         }        
 
-    def test_add_user_success(self):
-        '''
-        Expected to successfully add a new user        
-        '''
-        # generate random name        
-        pass        
-            
 
+    def test_register_success(self):
+        '''
+        Expected to successfully register a new account        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_success')        
+        # generate random name        
+                                    
+        self.body['username']= r'LY'+str(int(time.time()))
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'200'
+        #expected_res = r''
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)
+        
+        #print(r)            
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to create a new account! Response=" + str(r)
+        #assert str(r.content).lower().find(expected_res)>=0, "Error - Token wasn't sent to expected email! Response=" + str(r.content)         
+    
+    def test_register_success_long_name_50(self):
+        '''
+        Expected to successfully register with long name        
+        '''                                              
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_success_long_name_50')
+        
+        self.body['username']= r'LY'+str(int(time.time())).zfill(48)
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'200'
+        #expected_res = r''
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to create a new account with 50 letters in name! Response=" + str(r)
+        
+    
+    def test_register_fail_invalidtoken(self):
+        '''
+        Expected to return 401, as token is invalid        
+        '''                
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_invalidtoken')
+        
+        self.body['username']= r'ly20211212'
+        self.body['password']=r'string'                             
+        
+        expected_code = r'401'
+        #expected_res = r'Token Authentication failed'
+        
+        __headers = {
+            r'accept': r'*/*',
+            r'Authorization':'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9',
+            r'Content-Type': r'application/json'
+                        }
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=__headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with 51 letters in name! Response=" + str(r)        
+    
+    def test_register_fail_empty_name(self):
+        '''
+        Expected to return 400 as user name is not supplied        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_empty_name')
+        
+        self.body['username']= r''
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'400'
+        #expected_res = r''
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with empty name! Response=" + str(r)
+        
+    def test_register_fail_xtraLong_Name_51(self):
+        '''
+        Expected to return 400 as user name exceeds the length of defined field in code        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_xtraLong_Name_51')
+        
+        self.body['username']= r'LY'+str(int(time.time())).zfill(49)
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'400'
+        #expected_res = r''
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with 51 letters in name! Response=" + str(r)
+    
+    def test_register_fail_simple_password(self):
+        '''
+        Expected to return 400 add a new user with long name        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_simple_password')
+        
+        self.body['username']= r'LY'+str(int(time.time())).zfill(48)
+        self.body['password']=r'12345678'                             
+        
+        expected_code = r'400'        
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with simple password! Response=" + str(r)
+    
+    def test_register_fail_empty_password(self):
+        '''
+        Expected to return 400 as password is not supplied        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_empty_password')
+        
+        self.body['username']= r'LY'+str(int(time.time())).zfill(48)
+        self.body['password']=r''                             
+        
+        expected_code = r'400'        
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with Empty password! Response=" + str(r)
+    
+    def test_register_fail_existing_username(self):
+        '''
+        Expected to return 400 as username already exists        
+        '''        
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_existing_username')
+        
+        self.body['username']= r'ly20211212'
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'400'
+        #expected_res = r'already exists'        
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with existing name! Response=" + str(r)          
+
+    def test_register_fail_existing_username_uppercase(self):
+        '''
+        Expected to return 400 as username already exists        
+        '''        
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_register_fail_existing_username_uppercase')
+        
+        self.body['username']= r'LY20211212'
+        self.body['password']=r'1234-cba'                             
+        
+        expected_code = r'400'               
+        
+        r = requests.post(REGISTER_URL, data=json.dumps(self.body), headers=self.reg_headers)            
+        #print(r)        
+        assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with existing name! Response=" + str(r)          
+
+
+    def test_login_success_upper(self):
+        '''
+        Expected to return 200        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_login_success_upper')        
+                
+                                    
+        self.body['username']= r'LY20211212'
+        self.body['password']=r'string'                             
+        
+        expected_code = r'200'
+        expected_res = r'token'
+        
+        r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=self.login_headers)
+        
+        print(r)            
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to login as LY20211212 (upper case)! Response=" + str(r)
+        assert str(r.content).lower().find(expected_res)>=0, "Error - unexpected return message! Response=" + str(r.content)         
+    
+    def test_login_success_lower(self):
+        '''
+        Expected to return 200        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_login_success_lower')        
+                
+                                    
+        self.body['username']= r'ly20211212'
+        self.body['password']=r'string'                             
+        
+        expected_code = r'200'
+        expected_res = r'token'
+        
+        r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=self.login_headers)
+        
+        #print(r)            
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to login as ly20211212 (lower case)! Response=" + str(r)
+        assert str(r.content).lower().find(expected_res)>=0, "Error - unexpected return message! Response=" + str(r.content)         
+    
+    def test_login_fail_invalidtoken(self):
+        '''
+        Expected to return 401, as token is invalid        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_login_fail_invalidtoken')
+        
+        self.body['username']= r'ly20211212'
+        self.body['password']=r'string'                             
+        
+        expected_code = r'401'
+        #expected_res = r'Token Authentication failed'
+        
+        __headers = {
+            r'accept': r'application/json',
+            r'Authorization':'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9',
+            r'Content-Type': r'application/json'
+                        }
+        
+        r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=__headers)
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - Failed to login as ly20211212 (lower case)! Response=" + str(r)            
+        
+    def test_login_fail_password_case_sensitive(self):
+        '''
+        Expected to return 400, as token is invalid        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_login_fail_password_case_sensitive')        
+                
+                                    
+        self.body['username']= r'ly20211212'
+        self.body['password']=r'String'                             
+        
+        expected_code = r'400'
+        #expected_res = r'Username or Password is incorrect'
+        
+        r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=self.login_headers)
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - should not allow login as password is upper case! Response=" + str(r)
+        #assert str(r.content).lower().find(expected_res)>=0, "Error - unexpected return message! Response=" + str(r.content)         
+
+    
+    def test_login_fail_sql_injection(self):
+        '''
+        Expected to return 400, as token is invalid        
+        '''
+        print ('/---------------------------------/')
+        print ('Test Case: User Authentication - test_login_fail_sql_injection')        
+                
+                                    
+        self.body['username']= r'ly20211212'
+        self.body['password']="' or '1'='1"                             
+        
+        expected_code = r'400'
+        #expected_res = r'Username or Password is incorrect'
+        
+        r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=self.login_headers)
+                
+        assert str(r).lower().find(expected_code)>=0, "Error - should not allow login as password is incorrect! Response=" + str(r)
+        #assert str(r.content).lower().find(expected_res)>=0, "Error - unexpected return message! Response=" + str(r.content)         
+    
     def tearDown(self):
         pass
 
