@@ -1,0 +1,27 @@
+/---------------------------------/
+Test Case: Login Page - test_create_fail_duplicate_name
+/---------------------------------/
+Test Case: Login Page - test_create_fail_empty_name
+/---------------------------------/
+Test Case: Login Page - test_create_fail_xtralong_name_51
+/---------------------------------/
+Test Case: Login Page - test_create_success
+/---------------------------------/
+Test Case: Login Page - test_register_success_long_name_50
+/---------------------------------/
+Test Case: Login Page - test_create_fail_duplicate_name
+/---------------------------------/
+Test Case: Login Page - test_create_fail_empty_name
+/---------------------------------/
+Test Case: Login Page - test_create_fail_xtralong_name_51 
+/---------------------------------/
+Test Case: Login Page - test_create_success 
+/---------------------------------/
+Test Case: Login Page - test_create_success_long_name_50
+/---------------------------------/
+Test Case: Login Page - test_static_elements
+.
+----------------------------------------------------------------------
+Ran 11 tests in 26.540s
+
+OK
