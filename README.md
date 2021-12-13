@@ -6,7 +6,10 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 - Selenium
 
 ## API Tests
-- APP Authenticate - gentoken: script will test scenarios which token should/shouldn't be generated, and read token from gmail to ensure the email can be sent to desired email account. The feature will be extended later to get new token for running the test itself (currently it used a fixed authentication, will expire in 3 days)
+The tests will be extended later to get new token for running the test itself, currently it uses a fixed authentication token which expires on 15th Dec 2021.
+Feature to read new token from gmail is already available, and used in test cases. Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server.
+
+- APP Authenticate - gentoken: script will test scenarios which token should/shouldn't be generated, if the expected result is token should be generated, then script will read token from gmail to ensure the email can be sent to desired email account.
 
 - APP Authenticate - verifytoken
 
