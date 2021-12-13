@@ -19,25 +19,30 @@ class ReadeMail(object):
         '''
         Constructor
         '''
-        self.EMAIL = "responsivefight.win@gmail.com" 
-        self.PWD = "1234-gmail" 
-        self.SMTP_SERVER = "imap.gmail.com" 
-        self.PORT = 993                
+        pass                
     
     def readtoken(self):
         '''
         read token from most recent email
         '''
+        self.EMAIL = "responsivefight.win@gmail.com" 
+        self.PWD = "1234-gmail" 
+        self.SMTP_SERVER = "imap.gmail.com" 
+        self.PORT = 993
+        
         token=''
                         
         try:
             mail = imaplib.IMAP4_SSL(self.SMTP_SERVER)
-            mail.login(self.EMAIL, self.PWD)
-            mail.select(r'inbox')
-                        
+            mail.login(self.EMAIL, self.PWD)            
+            
+            #wait for 5 seconds
+            time.sleep(5)
+            
             print ('Waiting for email to be received......')
             i = 0
-            while (i<=20):
+            while (i<=10):
+                mail.select(r'inbox')
                 data = mail.search(None, 'UnSeen')
                 #data = mail.search(None, 'ALL')
                 mail_ids = data[1]
@@ -46,7 +51,7 @@ class ReadeMail(object):
                     break
                 else:
                     i += 1
-                    time.sleep(5)
+                    time.sleep(3)
             else:
                 raise RuntimeError('email is not received!') 
                         
@@ -59,10 +64,11 @@ class ReadeMail(object):
                             if part.get_content_type()=="text/plain" or part.get_content_type()=="text/html":
                                 message = part.get_payload(decode=True)                                
                                 content = message.decode()
-                                if str(content).find(r'Congratulations your application is register and the tokeKey is'):
-                                    token = str(content).strip()[-235:]
-                                    #print("Token: ", token)                                
-                                    return token
+                                #print (str(content))                                
+                                if str(content).find(r'Congratulations your application is register and the tokeKey is ')>=0:
+                                    token = content[64:]
+                                    #print("Token: ", token) 
+                                    break
             
         except Exception as e:
             print(str(e))                    
@@ -75,5 +81,5 @@ class ReadeMail(object):
         return token
         
 
-new = ReadeMail()
-print(new.readtoken())
+# new = ReadeMail()
+# print(new.readtoken())
