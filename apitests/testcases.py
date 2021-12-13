@@ -48,7 +48,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected to successfully generate a new token using random 'key' and email 'crazyFrog@yopmail.com'        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_success')
         print ('Expected to successfully generate a new token using random "key" and email "crazyFrog@yopmail.com"')
         
@@ -89,7 +89,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected to successfully generate a new token when key's length is 50 (maximum allowed)         
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_success_key_50')
         print ("Expected to successfully generate a new token when key's length is 50 (maximum allowed)")
         
@@ -115,7 +115,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected not to generate a new token due to duplicate key "crazyFrog"        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_fail_duplicate_key')
         print ('Expected to fail to generate a new token due to duplicate key "crazyFrog"')
         
@@ -138,7 +138,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected not to generate a new token due to duplicate key "crazyFrog"        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_fail_duplicate_key_uppercase')
         print ('Expected to fail to generate a new token due to duplicate key "crazyFrog"')
         
@@ -161,7 +161,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected to fail to generate a new token due to key length exceeds 50        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_fail_Long_key')
         print ('Expected not to generate a new token due to key length exceeds 50')        
         
@@ -186,7 +186,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected to failed to generate a new token due to invalid email "crazyFrogyopmail.com"        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_fail_invalid_email')
         print ('Expected not to generate a new token due to invalid email "crazyFrogyopmail.com"')
         
@@ -211,7 +211,7 @@ class AppAuthGenerate(unittest.TestCase):
     #     Test Application Authentication API - Generate Token
     #     Expected to failed to generate a new token due to key is not supplied        
     #     '''
-    #     print ('/---------------------------------/')
+    #     print ('\n/---------------------------------/')
     #     print ('Test Case: Application Authentication - test_gen_token_fail_missing_key')
     #     print ('Expected to failed to generate a new token due to key is not supplied')
     #
@@ -234,7 +234,7 @@ class AppAuthGenerate(unittest.TestCase):
         Test Application Authentication API - Generate Token
         Expected not to generate a new token due to email is not supplied        
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_gen_token_fail_missing_email')
         print ('Expected to failed to generate a new token due to email is not supplied')
                         
@@ -279,7 +279,7 @@ class AppAuthVerify(unittest.TestCase):
         '''
         Expected to successfully verify a token, the token is generated around 5pm 12/12/2021, therefore expected result varies depending on time        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_verify_token_static')
         print ('Expected to successfully verify a token, the token is generated around 5pm 12/12/2021, therefore expected result varies depending on time')
         
@@ -307,7 +307,7 @@ class AppAuthVerify(unittest.TestCase):
         '''
         Expected to return 400 because token is invalid        
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_verify_token_invalid_token')
         print ('Expected to return 400 because token is invalid')                                    
         
@@ -325,7 +325,7 @@ class AppAuthVerify(unittest.TestCase):
         '''
         Expected to return 400 because token is empty        
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: Application Authentication - test_verify_token_empty_token')
         print ('Expected to return 400 because token is empty')                                    
         
@@ -368,7 +368,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to successfully register a new account        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_success')        
         # generate random name        
                                     
@@ -389,7 +389,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to successfully register with long name        
         '''                                              
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_success_long_name_50')
         
         self.body['username']= r'LY'+str(int(time.time())).zfill(48)
@@ -407,7 +407,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 401, as token is invalid        
         '''                
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_invalidtoken')
         
         self.body['username']= r'ly20211212'
@@ -430,7 +430,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 as user name is not supplied        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_empty_name')
         
         self.body['username']= r''
@@ -447,7 +447,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 as user name exceeds the length of defined field in code        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_xtraLong_Name_51')
         
         self.body['username']= r'LY'+str(int(time.time())).zfill(49)
@@ -464,7 +464,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 add a new user with long name        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_simple_password')
         
         self.body['username']= r'LY'+str(int(time.time())).zfill(48)
@@ -480,7 +480,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 as password is not supplied        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_empty_password')
         
         self.body['username']= r'LY'+str(int(time.time())).zfill(48)
@@ -496,7 +496,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 as username already exists        
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_existing_username')
         
         self.body['username']= r'ly20211212'
@@ -513,7 +513,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400 as username already exists        
         '''        
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_register_fail_existing_username_uppercase')
         
         self.body['username']= r'LY20211212'
@@ -530,7 +530,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 200        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_login_success_upper')        
                 
                                     
@@ -542,7 +542,7 @@ class UserAuth(unittest.TestCase):
         
         r = requests.post(LOGIN_URL, data=json.dumps(self.body), headers=self.login_headers)
         
-        print(r)            
+        #print(r)            
                 
         assert str(r).lower().find(expected_code)>=0, "Error - Failed to login as LY20211212 (upper case)! Response=" + str(r)
         assert str(r.content).lower().find(expected_res)>=0, "Error - unexpected return message! Response=" + str(r.content)         
@@ -551,7 +551,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 200        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_login_success_lower')        
                 
                                     
@@ -572,7 +572,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 401, as token is invalid        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_login_fail_invalidtoken')
         
         self.body['username']= r'ly20211212'
@@ -595,7 +595,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400, as token is invalid        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_login_fail_password_case_sensitive')        
                 
                                     
@@ -615,7 +615,7 @@ class UserAuth(unittest.TestCase):
         '''
         Expected to return 400, as token is invalid        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Authentication - test_login_fail_sql_injection')        
                 
                                     
@@ -660,7 +660,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected to successfully add a new user, return in list        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_list_success')        
         
         # generate random name
@@ -693,7 +693,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with no score        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_success_no_score')        
                 
         # generate random name
@@ -713,7 +713,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with empty username        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_empty_name')
                 
                                                     
@@ -729,7 +729,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with same username but upper/lower cases        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_duplicate_name_case_insensitive')
         
         # add a new user first
@@ -751,7 +751,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with a username already exists        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_duplicate_name')        
         
         self.body['username']= 'LY20211212'
@@ -767,7 +767,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with 51 charactors in username        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_long_name_51')
         
         self.body['username']= r'LY'+str(int(time.time())).zfill(49)
@@ -782,7 +782,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with letter in score        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_score_letter')
         
         # generate random name
@@ -801,7 +801,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a new user with minus score        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_score_minus')
         
         # generate random name
@@ -820,7 +820,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow adding a user with score to more than integer supported        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_large_score_2147483648')
         
         # generate random name
@@ -839,7 +839,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected to successfully update a user, and return in list        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_list_success')        
         
         # generate random name
@@ -869,7 +869,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected to successfully add a new user as username cannot be found        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_new_user_success')        
         
         # generate random name
@@ -902,7 +902,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow updating a user with no score        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_fail_no_score')        
                         
         self.body['username']= r'LY20211212'
@@ -919,7 +919,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow update with empty username        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_fail_empty_name')
                 
                                                     
@@ -935,7 +935,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected to update existing user's score, even given username has different upper/lower cases        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_sucess_name_case_insensitive')
         
         # add a new user first
@@ -960,7 +960,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow updating score to a letter        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_fail_score_letter')
                                 
         self.body['username']= r'LY20211212'
@@ -976,7 +976,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow changing score to minus number        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_update_fail_score_minus')
                 
         self.body['username']= r'LY20211212'
@@ -992,7 +992,7 @@ class UserLeaderboard(unittest.TestCase):
         '''
         Expected not to allow change score to more than integer supported        
         '''
-        print ('/---------------------------------/')
+        print ('\n/---------------------------------/')
         print ('Test Case: User Leaderboard - test_add_fail_large_score_2147483648')
         
         self.body['username']= r'LY20211212'
