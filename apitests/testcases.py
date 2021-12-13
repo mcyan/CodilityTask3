@@ -37,7 +37,7 @@ class AppAuthGenerate(unittest.TestCase):
             r'Content-Type': r'application/json'
                         }
     
-    def test_gen_token_success(self):
+    def test_gen_verify_token_success(self):
         '''
         Test Application Authentication API - Generate Token
         Expected to successfully generate a new token using random 'key' and email 'crazyFrog@yopmail.com'        
@@ -61,7 +61,21 @@ class AppAuthGenerate(unittest.TestCase):
         # read token in gmail
         check_email = reademail.ReadeMail()
         
-        assert len(check_email.readtoken())>0, "Error - Token wasn't sent to expected email! Response=" + str(r.content)                 
+        tmp_token = check_email.readtoken() 
+        
+        assert len(tmp_token)>0, "Error - Token wasn't sent to expected email! Response=" + str(r.content)
+        
+        # Below script will call Verify Token using new token in email
+        __body = {}
+        __headers = {
+            r'accept': r'application/json',
+            r'Authorization': tmp_token                        
+                        }
+                                
+        r = requests.get(VRYTOKEN_URL, data=json.dumps(__body), headers=__headers)                
+        
+        expected_code = r'200'                              
+        assert str(r).lower().find(expected_code)>=0, r'Error - Failed to verify token! Response=' + str(r)                 
         
     
     def test_gen_token_success_key_50(self):
@@ -224,6 +238,13 @@ class AppAuthVerify(unittest.TestCase):
         self.HEADERS = {
             r'accept': r'application/json',                       
                         }                  
+    
+    def test_verify_token_dynamic(self):
+        '''
+        Expected to successfully generate a new token and then call API to verify it        
+        '''
+        # this is covered in test case: AppAuthGenerate.test_gen_verify_token_success
+        pass
     
     def test_verify_token_static(self):
         '''
