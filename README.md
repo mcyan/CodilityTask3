@@ -12,7 +12,7 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 
 ## API Tests
 Currently it uses a fixed authentication token which expires on 15th Dec 2021, the tests could be switched later to automatically generate and use new token for running testing script. Feature to read/return new token from gmail is already available in "reademail.py", and is used in some test cases. 
-Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server, also reading new token from gmail for every test cases can signaficantely slow down the tests.
+Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server, also reading new token from gmail for every test cases can significantly slow down the tests.
 
 Please refer to comments in testcases.py file for more details
 
