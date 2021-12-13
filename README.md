@@ -5,6 +5,11 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 - Python 3.6
 - Selenium
 
+## Limits
+- API tests - no known expired token yet. To cover this, added test case "test_verify_token_static" will test a hardcoded token, and expectation changes automatically according to token expiry date. After 15th Dec 2021, this test case will verify expired token. (Valid token is verified in "test_verify_token_dynamic")
+- API tests - cannot test Delete user as it is protected by "delete-key", which is not provided
+- Web portal test - portal installed/started on local environment, but H_KEY is not supplied. The key is named as "x-hasura-admin-secret" in "gqlQuestionApi.js", and is needed to connect to production API's (databases)
+
 ## API Tests
 The tests will be extended later to get new token for running the test itself, currently it uses a fixed authentication token which expires on 15th Dec 2021.
 Feature to read new token from gmail is already available, and used in test cases. Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server.
