@@ -11,14 +11,10 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 - Web portal test - portal installed/started on local environment, but H_KEY is not supplied. The key is named as "x-hasura-admin-secret" in "gqlQuestionApi.js", and is needed to connect to production API's (databases)
 
 ## API Tests
-The tests will be extended later to get new token for running the test itself, currently it uses a fixed authentication token which expires on 15th Dec 2021.
-Feature to read new token from gmail is already available, and used in test cases. Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server.
+Currently it uses a fixed authentication token which expires on 15th Dec 2021, the tests could be switched later to automatically generate and use new token for running testing script. Feature to read/return new token from gmail is already available in "reademail.py", and is used in some test cases. 
+Reason not doing this right now, because if implemented, Python built-in class unittest.TestCase will generate a new token for every test cases, which may cause extra load on back-end server, also reading new token from gmail for every test cases can signaficantely slow down the tests.
 
-- APP Authenticate - gentoken: script will test scenarios which token should/shouldn't be generated, if the expected result is token should be generated, then script will read token from gmail to ensure the email can be sent to desired email account.
-
-- APP Authenticate - verifytoken
-
-- User Authenticate
+Please refer to comments in testcases.py file for more details
 
 
 ## Start Test
