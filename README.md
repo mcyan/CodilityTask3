@@ -10,7 +10,7 @@ The testing scripts consists of two parts: API tests and Web portal tests.
 - API tests - the server might crash (no response for hours) after negative test, and the failure is very random. When the issue occurs, all subsequent tests will get 503 from API call, and tests fail. Need to split tests into small sub-sets, and run one set at a time to workaround the system error.
 - API tests - cannot test Delete user as it is protected by "delete-key", which is not provided
 - API tests - no known expired token yet. To cover this, added test case "test_verify_token_static" will test a hardcoded token, and expectation changes automatically according to token expiry date. After 15th Dec 2021, this test case will verify expired token. (Valid token is verified in "test_verify_token_dynamic")
-
+- API tests - since the server is already very fragile, stress tests and performance tests are not applicable at this stage.
 
 ## API Tests
 Currently it uses a fixed authentication token which expires on 15th Dec 2021, the tests could be switched later to automatically generate and use new token for running testing script. Feature to read/return new token from gmail is already available in "reademail.py", and is used in some test cases. 
