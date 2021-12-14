@@ -1,0 +1,194 @@
+
+/---------------------------------/
+Test Case: User Authentication - test_login_fail_invalidtoken
+.
+/---------------------------------/
+Test Case: User Authentication - test_login_fail_password_case_sensitive
+.
+/---------------------------------/
+Test Case: User Authentication - test_login_fail_sql_injection
+.
+/---------------------------------/
+Test Case: User Authentication - test_login_success_lower
+.
+/---------------------------------/
+Test Case: User Authentication - test_login_success_upper
+F
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_empty_name
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_empty_password
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_existing_username
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_existing_username_uppercase
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_invalidtoken
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_simple_password
+F
+/---------------------------------/
+Test Case: User Authentication - test_register_fail_xtraLong_Name_51
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_success
+.
+/---------------------------------/
+Test Case: User Authentication - test_register_success_long_name_50
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_duplicate_name
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_duplicate_name_case_insensitive
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_empty_name
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_large_score_2147483648
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_long_name_51
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_success_no_score
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_score_letter
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_score_minus
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_add_list_success
+.
+/---------------------------------/
+Test Case: User Leaderboard - test_update_fail_empty_name
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_add_fail_large_score_2147483648
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_fail_no_score
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_fail_score_letter
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_fail_score_minus
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_list_success
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_new_user_success
+F
+/---------------------------------/
+Test Case: User Leaderboard - test_update_sucess_name_case_insensitive
+F
+======================================================================
+FAIL: test_login_success_upper (__main__.UserAuth)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 547, in test_login_success_upper
+    assert str(r).lower().find(expected_code)>=0, "Error - Failed to login as LY20211212 (upper case)! Response=" + str(r)
+AssertionError: Error - Failed to login as LY20211212 (upper case)! Response=<Response [400]>
+
+======================================================================
+FAIL: test_register_fail_simple_password (__main__.UserAuth)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 477, in test_register_fail_simple_password
+    assert str(r).lower().find(expected_code)>=0, "Error - Should NOT allow to create a new account with simple password! Response=" + str(r)
+AssertionError: Error - Should NOT allow to create a new account with simple password! Response=<Response [200]>
+
+======================================================================
+FAIL: test_add_fail_duplicate_name_case_insensitive (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 748, in test_add_fail_duplicate_name_case_insensitive
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow adding a new user with same username but upper/lower cases! Response=" + str(r)
+AssertionError: Error - should not allow adding a new user with same username but upper/lower cases! Response=<Response [201]>
+
+======================================================================
+FAIL: test_add_fail_score_minus (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 816, in test_add_fail_score_minus
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow adding a new user with minus score! Response=" + str(r)
+AssertionError: Error - should not allow adding a new user with minus score! Response=<Response [201]>
+
+======================================================================
+FAIL: test_update_fail_empty_name (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 932, in test_update_fail_empty_name
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow updating a user with empty username! Response=" + str(r)
+AssertionError: Error - should not allow updating a user with empty username! Response=<Response [204]>
+
+======================================================================
+FAIL: test_update_fail_large_score_2147483648 (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 1004, in test_update_fail_large_score_2147483648
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow changing score to 2147483648! Response=" + str(r)
+AssertionError: Error - should not allow changing score to 2147483648! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_fail_no_score (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 915, in test_update_fail_no_score
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow updating a user with no score! Response=" + str(r)
+AssertionError: Error - should not allow updating a user with no score! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_fail_score_letter (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 972, in test_update_fail_score_letter
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow change score to 'A'! Response=" + str(r)
+AssertionError: Error - should not allow change score to 'A'! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_fail_score_minus (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 988, in test_update_fail_score_minus
+    assert str(r).lower().find(expected_code)>=0, "Error - should not allow changing score to minus number! Response=" + str(r)
+AssertionError: Error - should not allow changing score to minus number! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_list_success (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 855, in test_update_list_success
+    assert str(r).lower().find(expected_code)>=0, "Error - Failed to update user's score! Response=" + str(r)
+AssertionError: Error - Failed to update user's score! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_new_user_success (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 885, in test_update_new_user_success
+    assert str(r).lower().find(expected_code)>=0, "Error - Failed to add user when update cannot find the matched username! Response=" + str(r)
+AssertionError: Error - Failed to add user when update cannot find the matched username! Response=<Response [503]>
+
+======================================================================
+FAIL: test_update_sucess_name_case_insensitive (__main__.UserLeaderboard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "\\WEBSTERCARE.COM.AU\home\HOME\li.yan\Documents\workspace\ResponsiveFight\apitests\t.py", line 948, in test_update_sucess_name_case_insensitive
+    assert str(r).lower().find(expected_code)>=0, "Error - Failed to add a new user! Response=" + str(r)
+AssertionError: Error - Failed to add a new user! Response=<Response [503]>
+
+----------------------------------------------------------------------
+Ran 31 tests in 65.963s
+
+FAILED (failures=12)
